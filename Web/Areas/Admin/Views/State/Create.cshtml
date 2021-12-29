@@ -1,0 +1,53 @@
+﻿@model Dtos.ViewModels.CreateCountryStateViewModel
+@{
+    Layout = "_AdminLayout";
+    var title = "Create State";
+}
+<form method="post" action="Create">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row p-3 border">
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="State.CountryId"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m=>m.State.CountryId,
+                    Model.Countries,"Please Select Country", new {@class="form-control"})
+                    <span asp-validation-for="State.CountryId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row  mt-3">
+                <div class="col-4">
+                    <label asp-for="State.StateName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="State.StateName" class="form-control" />
+                    <span asp-validation-for="State.StateName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-4">
+                    <label asp-for="State.StateDescription"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="State.StateDescription" class="form-control" />
+                    <span asp-validation-for="State.StateDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-8 offset-4">
+                    <partial name="_CreateAndBackToListButton" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+

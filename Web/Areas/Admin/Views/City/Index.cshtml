@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Categories List";
+}
+
+<style>
+    .text-right {
+        text-align: right !important;
+    }
+</style>
+<div class="p-4" style="border-radius:20px;">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="text-primary">Cities List</h1>
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-primary" asp-action="Create"><i class="fas fa-plus"></i> &nbsp; Create New City</a>
+        </div>
+    </div>
+    <br />
+    <div class="p-3 border rounded" style="background-color:#cde8e2">
+        <table class="table table-stiped table-bordered" style="width:100%;" id="tblState">
+            <thead class="thead-dark">
+                <tr class="table-danger">
+                    <th>City Name</th>
+                    <th>City Description</th>
+                    <th>Sate Name</th>
+                    <th>State Description</th>
+                    <th>Country Name </th>
+                    <th>Country Description</th>
+                    <th>ISD Code</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/js/city.js"></script>
+
+
+}

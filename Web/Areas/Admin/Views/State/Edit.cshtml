@@ -1,0 +1,55 @@
+﻿@model Dtos.ViewModels.UpdateCountryStateViewModel
+@{
+    Layout = "_AdminLayout";
+    var title = "Edit State";
+}
+<form method="post" action="Create">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row p-3 border">
+        <input type="hidden" asp-for="UpdateState.StateId" />
+        <input type="hidden" asp-for="UpdateState.CreatedDate" />
+        <input type="hidden" asp-for="UpdateState.ModifiedDate" />
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="UpdateState.CountryId"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m=>m.UpdateState.CountryId,
+                    Model.Countries,"Please Select Country", new {@class="form-control"})
+                    <span asp-validation-for="UpdateState.CountryId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row  mt-3">
+                <div class="col-4">
+                    <label asp-for="UpdateState.StateName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="UpdateState.StateName" class="form-control" />
+                    <span asp-validation-for="UpdateState.StateName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-4">
+                    <label asp-for="UpdateState.StateDescription"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="UpdateState.StateDescription" class="form-control" />
+                    <span asp-validation-for="UpdateState.StateDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-8 offset-4">
+                    <partial name="_EditAndBackToListButton" model="@Model.UpdateState.StateId" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+

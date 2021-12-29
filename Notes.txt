@@ -1,0 +1,22 @@
+WakaTime Api Key
+170e1b10-a125-4ba0-938f-c6992f03c88f
+
+Steps to setup
+1 Open Project in Visual Studio and Build it.
+2 Provide required database connection string in AppDbContext file for migrations
+3 Change connection string of database in file appsettings.json
+4 Set Repostitory project as strtup project
+5 Open Nuget manager package manager, select repository project as target project and generate database by migrations
+  give command update-database  to create database
+6 Execute all scripts undet data folder in database project
+7 Set Web Project as start up project and run the application
+
+Credentails of users are as mentioned below
+
+Customer User
+email: riteshoct7@gmail.com
+password: MishaParth@2519
+
+Admin User
+email: admin@gmail.com
+password: MishaParth@2519

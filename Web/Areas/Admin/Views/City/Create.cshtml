@@ -1,0 +1,96 @@
+﻿@model Dtos.ViewModels.CreateCountryStateCityViewModel
+@{
+    Layout = "_AdminLayout";
+    var title = "Create City";
+}
+<form method="post" action="Create">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row p-3 border">
+        <input type="hidden" asp-for="CountryId" id="hdnCountryID" />
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CountryId"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m=>m.CountryId,
+                    Model.Countries,"Please Select Country", new {@class="form-control",@id="ddlCountry"})
+                    <span asp-validation-for="CountryId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row  mt-3">
+                <div class="col-4">
+                    <label asp-for="City.StateId"></label>
+                </div>
+                <div class="col-8">
+
+                    @Html.DropDownListFor(x=>x.City.StateId,new SelectList(String.Empty,"StateId","StateName"),
+                    new {@class="form-control",@id="ddlState"})
+
+                    <span asp-validation-for="City.StateId" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-4">
+                    <label asp-for="City.CityName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="City.CityName" class="form-control" />
+                    <span asp-validation-for="City.CityName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-4">
+                    <label asp-for="City.CityDescription"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="City.CityDescription" class="form-control" />
+                    <span asp-validation-for="City.CityDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="col-8 offset-4">
+                    <partial name="_CreateAndBackToListButton" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script type="text/javascript">
+
+        $(document).ready(function(){
+            var items = "<option value=''>Select State</option>";
+            $("#ddlState").html(items);
+        });
+
+        $("#ddlCountry").change(function () {
+        var ddlSource = "#ddlCountry";
+        GetStatesByCountryId($(ddlSource).val());
+    });
+
+    function GetStatesByCountryId(CountryId) {
+        var url = '@Url.Content("~/")' + "Admin/City/GetStatesByCountryId";
+        $.getJSON(
+            url,
+            { CountryId: CountryId },
+            function (data) {
+                var items = "";
+                $("#ddlState").empty();
+                $.each(data, function (i, state) {
+                    items += "<option value='" + state.value + "'>" + state.text + "</option>";
+                });
+                $("#ddlState").html(items);
+            });
+    }
+
+</script>
+
+}
+
