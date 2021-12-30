@@ -7,10 +7,25 @@ namespace Repository.Interfaces
 
         #region Methods
 
-        Country GetCountryByCountryName(string countryName);        
-        bool IsCountryExist(string countryName, int CountryId);                            
+        #region Sync Methods
+
+        Country GetCountryByCountryName(string countryName);
+        bool IsCountryExist(string countryName, int CountryId);
         bool IsCountryExist(int CountryId);
-        
+
+        #endregion
+
+        #region Async Methods
+
+        Task<Country> GetCountryByCountryNameAsync(string countryName);
+        Task<bool> IsCountryExistAsync(string countryName, int CountryId);
+        Task<bool> IsCountryExistAsync(int CountryId);
+
+        #endregion
+
+
+
+
         #endregion
 
     }

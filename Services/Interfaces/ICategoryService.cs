@@ -24,6 +24,9 @@ namespace Services.Interfaces
         #region Async Methods
 
         Task<IEnumerable<CategoryListingDto>> GetAllAsync();
+        Task<bool> CategoryExistAsync(string categoryName, int CategoryId);
+        Task<bool> CategoryExistAsync(int CategoryId);
+        Task<CategoryListingDto> GetCategoryByCategoryNameAsync(string categoryName);
 
         #endregion
 

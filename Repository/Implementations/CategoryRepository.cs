@@ -47,19 +47,19 @@ namespace Repository.Implementations
 
         #region Async Methods
 
-        public async Task<bool> CatgeoryExistAsync(string categoryName, int CategoryId)
+        public async Task<bool> CategoryExistAsync(string categoryName, int CategoryId)
         {
             dynamic result = db.Categories.Any(x => x.CategoryName.ToUpper().Trim() == categoryName.ToUpper().Trim() && x.CategoryId != CategoryId);
             return await result;
         }
 
-        public async Task<bool> CatgeoryExistAsync(int CategoryId)
+        public async Task<bool> CategoryExistAsync(int CategoryId)
         {
             dynamic result = db.Categories.Any(x => x.CategoryId == CategoryId);
             return await result;
         }
 
-        public async Task<Category> GetCatgeoryByCategoryNameAsync(string categoryName)
+        public async Task<Category> GetCategoryByCategoryNameAsync(string categoryName)
         {
             dynamic result = db.Categories.Where(x => x.CategoryName.ToUpper().Trim() == categoryName.ToUpper().Trim()).FirstOrDefault();
             return await result;

@@ -17,9 +17,9 @@ namespace Repository.Interfaces
 
         #region Async Methods
 
-        Task<bool> CatgeoryExistAsync(string categoryName, int CategoryId);
-        Task<bool> CatgeoryExistAsync(int CategoryId);
-        Task<Category> GetCatgeoryByCategoryNameAsync(string categoryName);
+        Task<bool> CategoryExistAsync(string categoryName, int CategoryId);
+        Task<bool> CategoryExistAsync(int CategoryId);
+        Task<Category> GetCategoryByCategoryNameAsync(string categoryName);
 
         #endregion
 

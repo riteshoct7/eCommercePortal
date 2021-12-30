@@ -26,7 +26,9 @@ namespace Services.Implementations
 
         #region Methods
 
-        public bool Add (CreateCountryDto model)
+        #region Sync Methods
+
+        public bool Add(CreateCountryDto model)
         {
             Country objCountry = ObjectMapper.Mapper.Map<Country>(model);
             objCountry.CreatedDate = DateTime.UtcNow;
@@ -36,9 +38,9 @@ namespace Services.Implementations
         }
 
         public bool Update(UpdateCountryDto model)
-        {            
+        {
             Country objCountry = ObjectMapper.Mapper.Map<Country>(model);
-            objCountry.CreatedDate = objCountry.CreatedDate;            
+            objCountry.CreatedDate = objCountry.CreatedDate;
             objCountry.ModifiedDate = DateTime.UtcNow;
             unitOfWorkRepository.countryRepository.Update(objCountry);
             return unitOfWorkRepository.SaveChanges();
@@ -54,7 +56,7 @@ namespace Services.Implementations
         public bool Remove(object id)
         {
             unitOfWorkRepository.countryRepository.Remove(id);
-            return unitOfWorkRepository.SaveChanges();            
+            return unitOfWorkRepository.SaveChanges();
         }
 
         public IEnumerable<CountryListingDto> GetAll()
@@ -92,6 +94,31 @@ namespace Services.Implementations
             return unitOfWorkRepository.countryRepository.IsCountryExist(CountryId);
         }
 
+        #endregion
+        
+        #region Async Methods
+
+        public async Task<CountryListingDto> GetCountryByCountryNameAsync(string countryName)
+        {                     
+            var country = await unitOfWorkRepository.countryRepository.GetCountryByCountryNameAsync(countryName);
+            var countryDto = ObjectMapper.Mapper.Map<CountryListingDto>(country);
+            return countryDto;
+        }
+
+        public async Task<bool> IsCountryExistAsync(string countryName, int CountryId)
+        {
+            var result = await unitOfWorkRepository.countryRepository.IsCountryExistAsync(countryName, CountryId);
+            return result;
+        }
+
+        public async Task<bool> IsCountryExistAsync(int CountryId)
+        {
+            var result = await unitOfWorkRepository.countryRepository.IsCountryExistAsync(CountryId);
+            return result;
+        }
+
+        #endregion
+        
         #endregion
 
     }

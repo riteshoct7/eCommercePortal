@@ -108,7 +108,24 @@ namespace Services.Implementations
                 lst.Add(ObjectMapper.Mapper.Map<CategoryListingDto>(item));
             }
             return lst;
-        } 
+        }
+
+        public async Task<bool> CategoryExistAsync(string categoryName, int CategoryId)
+        {
+            return await unitOfWorkRepository.categoryRepository.CategoryExistAsync(categoryName, CategoryId);
+        }
+        
+        public async Task<bool> CategoryExistAsync(int CategoryId)
+        {
+            return await unitOfWorkRepository.categoryRepository.CategoryExistAsync(CategoryId);
+        }
+
+        public async Task<CategoryListingDto> GetCategoryByCategoryNameAsync(string categoryName)
+        {
+            var category = await unitOfWorkRepository.categoryRepository.GetCategoryByCategoryNameAsync(categoryName);
+            var categoryDto = ObjectMapper.Mapper.Map<CategoryListingDto>(category);
+            return categoryDto;
+        }
 
         #endregion
 

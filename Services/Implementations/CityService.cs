@@ -26,6 +26,8 @@ namespace Services.Implementations
 
         #region Methods
 
+        #region Sync Methods
+
         public bool Add(CreateCityDto model)
         {
             City objCity = ObjectMapper.Mapper.Map<City>(model);
@@ -101,11 +103,54 @@ namespace Services.Implementations
 
         public UpdateCityDto GetCityDetailsByCityId(int id)
         {
-            var city =  unitOfWorkRepository.cityRepository.GetCityDetailsByCityId(id);
+            var city = unitOfWorkRepository.cityRepository.GetCityDetailsByCityId(id);
             var cityDto = ObjectMapper.Mapper.Map<UpdateCityDto>(city);
             cityDto.CountryId = city.State.CountryId;
             return cityDto;
         }
+
+        #endregion
+
+
+        #region AsyncMethods        
+
+        public async Task<UpdateCityDto> GetCityDetailsByCityIdAsync(int id)
+        {
+            var city = await unitOfWorkRepository.cityRepository.GetCityDetailsByCityIdAsync(id);
+            var cityDto = ObjectMapper.Mapper.Map<UpdateCityDto>(city);
+            cityDto.CountryId = city.State.CountryId;
+            return cityDto;
+        }
+
+        public async Task<IEnumerable<CityListingDto>> GetAllCitiesAsync()
+        {
+            var cities = await unitOfWorkRepository.cityRepository.GetAllCitiesAsync();
+            var lstCitiesDTO = new List<CityListingDto>();
+            foreach (var item in cities)
+            {
+                lstCitiesDTO.Add(ObjectMapper.Mapper.Map<CityListingDto>(item));
+            }
+            return lstCitiesDTO;
+        }
+
+        public async Task<CityListingDto> GetCityByCityNameAsync(string cityName)
+        {
+            var city = await unitOfWorkRepository.cityRepository.GetCityByCityNameAsync(cityName);
+            var cityDto = ObjectMapper.Mapper.Map<CityListingDto>(city);
+            return cityDto;
+        }
+
+        public async Task<bool> IsCityExistAsync(string cityName, int CityId)
+        {
+            return await unitOfWorkRepository.cityRepository.IsCityExistAsync(cityName,CityId);
+        }
+
+        public async Task<bool> IsCityExistAsync(int CityId)
+        {
+            return await  unitOfWorkRepository.cityRepository.IsCityExistAsync(CityId);
+        }
+
+        #endregion 
 
         #endregion
 

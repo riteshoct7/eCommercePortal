@@ -7,6 +7,8 @@ namespace Services.Interfaces
 
         #region Methods
 
+        #region  Sync Methods
+
         bool Add(CreateCityDto model);
         bool Update(UpdateCityDto model);
         bool Remove(CityListingDto obj);
@@ -18,8 +20,20 @@ namespace Services.Interfaces
         CityListingDto GetCityByCityName(string cityName);
         bool IsCityExist(string cityName, int CityId);
         bool IsCityExist(int CityId);
-        
-        #endregion  
+
+        #endregion
+
+        #region AsyncMethods        
+
+        Task<UpdateCityDto> GetCityDetailsByCityIdAsync(int id);
+        Task<IEnumerable<CityListingDto>> GetAllCitiesAsync();
+        Task<CityListingDto> GetCityByCityNameAsync(string cityName);
+        Task<bool> IsCityExistAsync(string cityName, int CityId);
+        Task<bool> IsCityExistAsync(int CityId);
+
+        #endregion 
+
+        #endregion
 
     }
 }

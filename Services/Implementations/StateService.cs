@@ -24,7 +24,7 @@ namespace Services.Implementations
 
         #endregion
 
-        #region Methods
+        #region  Sync Methods
 
         public bool Add(CreateStateDto model)
         {
@@ -97,6 +97,42 @@ namespace Services.Implementations
                 lstStatesDTO.Add(ObjectMapper.Mapper.Map<StateListingDto>(item));
             }
             return lstStatesDTO;
+        }
+
+        #endregion
+
+        #region Async Methods
+
+        public async Task<StateListingDto> GetStateByStateNameAsync(string stateName)
+        {
+            var state = await unitOfWorkRepository.stateRepository.GetStateByStateNameAsync(stateName);
+            var stateDto = ObjectMapper.Mapper.Map<StateListingDto>(state);
+            return stateDto;
+        }
+
+        public async Task<bool> IsStateExistAsync(string stateName, int StateId)
+        {
+            var result = await unitOfWorkRepository.stateRepository.IsStateExistAsync(stateName,StateId);
+            return result;
+        }
+
+        public async Task<bool> IsStateExistAsync(int StateId)
+        {
+            var result = await unitOfWorkRepository.stateRepository.IsStateExistAsync(StateId);
+            return result;
+        }
+
+        public async Task<IEnumerable<StateListingDto>> GetAllStatesAsync()
+        {
+            {
+                var states = await unitOfWorkRepository.stateRepository.GetAllStatesAsync();
+                var lstStatesDTO = new List<StateListingDto>();
+                foreach (var item in states)
+                {
+                    lstStatesDTO.Add(ObjectMapper.Mapper.Map<StateListingDto>(item));
+                }
+                return lstStatesDTO;
+            }
         }
 
         #endregion
